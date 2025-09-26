@@ -1,4 +1,4 @@
-# Dev Container Features: Self Authoring Template
+# Dev Container Features
 
 > This repo provides a starting point and example for creating your own custom [dev container Features](https://containers.dev/implementors/features/), hosted for free on GitHub Container Registry.  The example in this repository follows the [dev container Feature distribution specification](https://containers.dev/implementors/features-distribution/).  
 >
@@ -6,7 +6,20 @@
 
 ## Example Contents
 
-This repository contains a _collection_ of two Features - `hello` and `color`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
+This repository contains a _collection_ of three Features - `hello`, `color`, and `gcloud`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
+
+### `gcloud`
+
+Installs the gcloud CLI.
+
+```jsonc
+{
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/spatialedge-ai/devcontainer-features/gcloud:1": {}
+    }
+}
+```
 
 ### `hello`
 
@@ -16,7 +29,7 @@ Running `hello` inside the built container will print the greeting provided to i
 {
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
-        "ghcr.io/devcontainers/feature-starter/hello:1": {
+        "ghcr.io/spatialedge-ai/devcontainer-features/hello:1": {
             "greeting": "Hello"
         }
     }
@@ -37,7 +50,7 @@ Running `color` inside the built container will print your favorite color to sta
 {
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
-        "ghcr.io/devcontainers/feature-starter/color:1": {
+        "ghcr.io/spatialedge-ai/devcontainer-features/color:1": {
             "favorite": "green"
         }
     }
@@ -49,6 +62,11 @@ $ color
 
 my favorite color is green
 ```
+
+## Available Features
+* [Google Cloud CLI](./src/gcloud)
+* [Color](./src/color)
+* [Hello](./src/hello)
 
 ## Repo and Feature Structure
 
@@ -126,13 +144,13 @@ This repo contains a **GitHub Action** [workflow](.github/workflows/release.yaml
 By default, each Feature will be prefixed with the `<owner/<repo>` namespace.  For example, the two Features in this repository can be referenced in a `devcontainer.json` with:
 
 ```
-ghcr.io/devcontainers/feature-starter/color:1
-ghcr.io/devcontainers/feature-starter/hello:1
+ghcr.io/spatialedge-ai/devcontainer-features/color:1
+ghcr.io/spatialedge-ai/devcontainer-features/hello:1
 ```
 
-The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/devcontainers/feature-starter`.  This contains information useful for tools aiding in Feature discovery.
+The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/spatialedge-ai/devcontainer-features`.  This contains information useful for tools aiding in Feature discovery.
 
-'`devcontainers/feature-starter`' is known as the feature collection namespace.
+'`spatialedge-ai/devcontainer-features`' is known as the feature collection namespace.
 
 ### Marking Feature Public
 
@@ -143,8 +161,6 @@ This can be done by navigating to the Feature's "package settings" page in GHCR,
 ```
 https://github.com/users/<owner>/packages/container/<repo>%2F<featureName>/settings
 ```
-
-<img width="669" alt="image" src="https://user-images.githubusercontent.com/23246594/185244705-232cf86a-bd05-43cb-9c25-07b45b3f4b04.png">
 
 ### Adding Features to the Index
 
