@@ -7,6 +7,43 @@ rm -rf /var/lib/apt/lists/*
 
 GCLOUD_VERSION=${VERSION:-"latest"}
 
+# List of all available components
+ALL_COMPONENTS=(
+    "google-cloud-cli-anthos-auth"
+    "google-cloud-cli-app-engine-go"
+    "google-cloud-cli-app-engine-grpc"
+    "google-cloud-cli-app-engine-java"
+    "google-cloud-cli-app-engine-python"
+    "google-cloud-cli-app-engine-python-extras"
+    "google-cloud-cli-bigtable-emulator"
+    "google-cloud-cli-cbt"
+    "google-cloud-cli-cloud-build-local"
+    "google-cloud-cli-cloud-run-proxy"
+    "google-cloud-cli-config-connector"
+    "google-cloud-cli-datastore-emulator"
+    "google-cloud-cli-firestore-emulator"
+    "google-cloud-cli-gke-gcloud-auth-plugin"
+    "google-cloud-cli-kpt"
+    "google-cloud-cli-kubectl-oidc"
+    "google-cloud-cli-local-extract"
+    "google-cloud-cli-minikube"
+    "google-cloud-cli-nomos"
+    "google-cloud-cli-pubsub-emulator"
+    "google-cloud-cli-skaffold"
+    "google-cloud-cli-spanner-emulator"
+    "google-cloud-cli-terraform-validator"
+    "google-cloud-cli-tests"
+)
+
+# Dynamically create INSTALL_* variables from options
+for component in "${ALL_COMPONENTS[@]}"; do
+    # Transform the component name to the corresponding env var name, e.g., GOOGLE_CLOUD_CLI_ANTHOS_AUTH
+    var_name=$(echo "$component" | tr 'a-z-' 'A-Z_')
+    # Get the value of the env var, defaulting to "false"
+    declare "INSTALL_${var_name}=${!var_name:-"false"}"
+done
+
+
 if [ "$(id -u)" -ne 0 ]; then
     echo -e 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
     exit 1
@@ -88,6 +125,22 @@ install_using_apt() {
         return 1
     fi
 
+    # Build list of components to install
+    components_to_install=()
+    for component in "${ALL_COMPONENTS[@]}"; do
+        var_name="INSTALL_$(echo "$component" | tr 'a-z-' 'A-Z_')"
+        if [ "${!var_name}" = "true" ]; then
+            components_to_install+=("$component")
+        fi
+    done
+
+    # Install all components at once
+    if [ ${#components_to_install[@]} -gt 0 ]; then
+        echo "(*) Installing additional components..."
+        if ! (apt-get install -yq "${components_to_install[@]}"); then
+            echo "(!) Failed to install one or more components."
+        fi
+    fi
 }
 
 echo "(*) Installing google-cloud CLI..."
