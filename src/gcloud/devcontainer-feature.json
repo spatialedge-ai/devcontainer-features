@@ -1,13 +1,133 @@
 {
     "name": "Google Cloud CLI",
     "id": "gcloud",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Install google-cloud-cli",
     "options": {
         "version": {
             "type": "string",
             "default": "latest",
             "description": "Select or enter a gcloud CLI version"
+        },
+        "google-cloud-cli-anthos-auth": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the anthos-auth component"
+        },
+        "google-cloud-cli-app-engine-go": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the app-engine-go component"
+        },
+        "google-cloud-cli-app-engine-grpc": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the app-engine-grpc component"
+        },
+        "google-cloud-cli-app-engine-java": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the app-engine-java component"
+        },
+        "google-cloud-cli-app-engine-python": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the app-engine-python component"
+        },
+        "google-cloud-cli-app-engine-python-extras": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the app-engine-python-extras component"
+        },
+        "google-cloud-cli-bigtable-emulator": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the bigtable-emulator component"
+        },
+        "google-cloud-cli-cbt": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the cbt component"
+        },
+        "google-cloud-cli-cloud-build-local": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the cloud-build-local component"
+        },
+        "google-cloud-cli-cloud-run-proxy": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the cloud-run-proxy component"
+        },
+        "google-cloud-cli-config-connector": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the config-connector component"
+        },
+        "google-cloud-cli-datastore-emulator": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the datastore-emulator component"
+        },
+        "google-cloud-cli-firestore-emulator": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the firestore-emulator component"
+        },
+        "google-cloud-cli-gke-gcloud-auth-plugin": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the gke-gcloud-auth-plugin component"
+        },
+        "google-cloud-cli-kpt": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the kpt component"
+        },
+        "google-cloud-cli-kubectl-oidc": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the kubectl-oidc component"
+        },
+        "google-cloud-cli-local-extract": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the local-extract component"
+        },
+        "google-cloud-cli-minikube": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the minikube component"
+        },
+        "google-cloud-cli-nomos": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the nomos component"
+        },
+        "google-cloud-cli-pubsub-emulator": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the pubsub-emulator component"
+        },
+        "google-cloud-cli-skaffold": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the skaffold component"
+        },
+        "google-cloud-cli-spanner-emulator": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the spanner-emulator component"
+        },
+        "google-cloud-cli-terraform-validator": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the terraform-validator component"
+        },
+        "google-cloud-cli-tests": {
+            "type": "boolean",
+            "default": false,
+            "description": "Install the tests component"
         }
     },
     "installsAfter": [
