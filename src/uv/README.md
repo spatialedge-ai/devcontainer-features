@@ -1,5 +1,5 @@
 
-# uv/uvx (uv)
+# uv (uv)
 
 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, virtualenv, and more.
 
