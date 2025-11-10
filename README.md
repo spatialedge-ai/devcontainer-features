@@ -6,7 +6,7 @@
 
 ## Example Contents
 
-This repository contains a _collection_ of three Features - `hello`, `color`, and `gcloud`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
+This repository contains multiple Features - `gcloud` and `gitleaks`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
 
 ### `gcloud`
 
@@ -21,52 +21,20 @@ Installs the gcloud CLI.
 }
 ```
 
-### `hello`
+### `gitleaks`
 
-Running `hello` inside the built container will print the greeting provided to it via its `greeting` option.
+Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code.
 
-```jsonc
-{
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/spatialedge-ai/devcontainer-features/hello:1": {
-            "greeting": "Hello"
-        }
-    }
+```json
+"features": {
+    "ghcr.io/spatialedge-ai/devcontainer-features/gitleaks:1": {}
 }
-```
-
-```bash
-$ hello
-
-Hello, user.
-```
-
-### `color`
-
-Running `color` inside the built container will print your favorite color to standard out.
-
-```jsonc
-{
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/spatialedge-ai/devcontainer-features/color:1": {
-            "favorite": "green"
-        }
-    }
-}
-```
-
-```bash
-$ color
-
-my favorite color is green
 ```
 
 ## Available Features
 * [Google Cloud CLI](./src/gcloud)
-* [Color](./src/color)
-* [Hello](./src/hello)
+* [Gitleaks](./src/gitleaks)
+
 
 ## Repo and Feature Structure
 
@@ -74,10 +42,10 @@ Similar to the [`devcontainers/features`](https://github.com/devcontainers/featu
 
 ```
 ├── src
-│   ├── hello
+│   ├── gcloud
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh
-│   ├── color
+│   ├── gitleaks
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh
 |   ├── ...
@@ -88,40 +56,7 @@ Similar to the [`devcontainers/features`](https://github.com/devcontainers/featu
 
 An [implementing tool](https://containers.dev/supporting#tools) will composite [the documented dev container properties](https://containers.dev/implementors/features/#devcontainer-feature-json-properties) from the feature's `devcontainer-feature.json` file, and execute in the `install.sh` entrypoint script in the container during build time.  Implementing tools are also free to process attributes under the `customizations` property as desired.
 
-### Options
 
-All available options for a Feature should be declared in the `devcontainer-feature.json`.  The syntax for the `options` property can be found in the [devcontainer Feature json properties reference](https://containers.dev/implementors/features/#devcontainer-feature-json-properties).
-
-For example, the `color` feature provides an enum of three possible options (`red`, `gold`, `green`).  If no option is provided in a user's `devcontainer.json`, the value is set to "red".
-
-```jsonc
-{
-    // ...
-    "options": {
-        "favorite": {
-            "type": "string",
-            "enum": [
-                "red",
-                "gold",
-                "green"
-            ],
-            "default": "red",
-            "description": "Choose your favorite color."
-        }
-    }
-}
-```
-
-Options are exported as Feature-scoped environment variables.  The option name is captialized and sanitized according to [option resolution](https://containers.dev/implementors/features/#option-resolution).
-
-```bash
-#!/bin/bash
-
-echo "Activating feature 'color'"
-echo "The provided favorite color is: ${FAVORITE}"
-
-...
-```
 
 ## Distributing Features
 
@@ -141,11 +76,11 @@ This repo contains a **GitHub Action** [workflow](.github/workflows/release.yaml
 
 *Allow GitHub Actions to create and approve pull requests* should be enabled in the repository's `Settings > Actions > General > Workflow permissions` for auto generation of `src/<feature>/README.md` per Feature (which merges any existing `src/<feature>/NOTES.md`).
 
-By default, each Feature will be prefixed with the `<owner/<repo>` namespace.  For example, the two Features in this repository can be referenced in a `devcontainer.json` with:
+By default, each Feature will be prefixed with the `<owner/<repo>` namespace.  For example, the Features in this repository can be referenced in a `devcontainer.json` with:
 
 ```
-ghcr.io/spatialedge-ai/devcontainer-features/color:1
-ghcr.io/spatialedge-ai/devcontainer-features/hello:1
+ghcr.io/spatialedge-ai/devcontainer-features/gcloud:1
+ghcr.io/spatialedge-ai/devcontainer-features/gitleaks:1
 ```
 
 The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/spatialedge-ai/devcontainer-features`.  This contains information useful for tools aiding in Feature discovery.
