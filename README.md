@@ -6,7 +6,7 @@
 
 ## Example Contents
 
-This repository contains multiple Features - `gcloud` and `gitleaks`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
+This repository contains multiple Features - `gcloud`, `gitleaks`, and `uv`. These Features serve as simple feature implementations.  Each sub-section below shows a sample `devcontainer.json` alongside example usage of the Feature.
 
 ### `gcloud`
 
@@ -31,9 +31,20 @@ Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like pass
 }
 ```
 
+### `uv`
+
+A single tool to replace pip, pip-tools, pipx, poetry, pyenv, virtualenv, and more.
+
+```json
+"features": {
+    "ghcr.io/spatialedge-ai/devcontainer-features/uv:1": {}
+}
+```
+
 ## Available Features
 * [Google Cloud CLI](./src/gcloud)
 * [Gitleaks](./src/gitleaks)
+* [uv](./src/uv)
 
 
 ## Repo and Feature Structure
@@ -48,7 +59,7 @@ Similar to the [`devcontainers/features`](https://github.com/devcontainers/featu
 │   ├── gitleaks
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh
-|   ├── ...
+│   ├── uv
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh
 ...
@@ -81,6 +92,7 @@ By default, each Feature will be prefixed with the `<owner/<repo>` namespace.  F
 ```
 ghcr.io/spatialedge-ai/devcontainer-features/gcloud:1
 ghcr.io/spatialedge-ai/devcontainer-features/gitleaks:1
+ghcr.io/spatialedge-ai/devcontainer-features/uv:1
 ```
 
 The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/spatialedge-ai/devcontainer-features`.  This contains information useful for tools aiding in Feature discovery.
